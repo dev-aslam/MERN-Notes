@@ -1,4 +1,4 @@
-### JavaScript Pending Topics
+### JavaScript
 
 #### <span style="color:blue">Scoping</span>
 Scope in JavaScript refers to the context or environment in which variables are declared and can be accessed. It dictates the visibility and lifetime of a variable, determining where in your code a particular variable is valid and accessible. JavaScript has 3 primary Scopes.
