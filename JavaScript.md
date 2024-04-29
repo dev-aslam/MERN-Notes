@@ -1,141 +1,50 @@
 ### JavaScript Pending Topics
 
-1. **Scoping**
+**Scoping**
+Scope in JavaScript refers to the context or environment in which variables are declared and can be accessed.It dictates the visibility and lifetime of a variable, determining where in your code a particular variable is valid and accessible.
+JavaScript have 3 primary Scopes.
 
-   - Global Scope
-   - Block Scope
-   - Function Scope
-   - Temporal Dead Zone (TDZ)
+- global, local, and block scope.
 
-2. **Data Types and Operators**
+**Global Scope**
+global scope is the widest scope available. Variables declared in global scope are accessible from anywhere in your code, whether it's inside functions, conditional statements, loops, or other blocks of code.
 
-   - Primitive vs Non-Primitive Data Types
-   - Null vs Undefined
-   - Type Coercion
-   - Escape Sequences
+**Local Scope**
+When you declare a variable in local scope, it is limited in visibility to the block of code, function, or conditional statement in which it is defined.
+Variables in local scope are protected from interference or modification by code outside their scope, providing a level of isolation.
+Variables in local scope are typically declared within functions, conditional statements, loops, or other code blocks.
 
-3. **Functions and Execution Context**
+**Block Scope**
+Block scope in JavaScript is like a series of nested boxes within a larger container, each with its own set of variables.
+Unlike global and local scopes, which are defined by functions or global context, block scope is created within specific code blocks, such as conditional statements (if, else, switch) and loops (for, while).
+Variables declared in block scope are confined to that block, offering a high degree of isolation.
 
-   - Regular Functions vs Arrow Functions
-   - Higher-Order Functions (HOF)
-   - Currying
-   - Immediately Invoked Function Expression (IIFE)
-   - Closure
+**Variable Shadowing**
+Variable shadowing occurs when you declare a variable with the same name inside a local scope, effectively "hiding" the variable with the same name in a higher scope.
 
-4. **Arrays, Sets, and Objects**
+**Closure and Function Scope**
+Think of closures as little "bundles" of code that encapsulate both a function and the variables it needs to work with.
+These bundles are like self-contained units of functionality that can be stored, passed around, and executed independently.
+In JavaScript, a closure is formed when a function is declared within another function, and the inner function has access to the variables of the outer function.
+This behavior is a result of function scope and the scope chain.
 
-   - Array vs Set
-   - Array Methods: `map()`, `forEach()`, `slice()`, `splice()`, `reduce()`
-   - Spread Operator (`...`)
-   - Destructuring
-   - Deep Copy vs Shallow Copy
-   - Object Methods
-   - Object Freeze vs Seal
+```javascript
+function outerFunction() {
+  var outerVariable = "I'm in outerFunction";
+  function innerFunction() {
+    console.log(outerVariable); // Accesses outerVariable from the outer scope
+  }
+  return innerFunction;
+}
+var closure = outerFunction();
+closure(); // This still has access to outerVariable
+```
 
-5. **Control Flow**
+In this code, innerFunction is declared inside outerFunction, forming a closure.
+When outerFunction is called and assigned to the closure variable, it retains access to outerVariable even after outerFunction has completed.
+This is the essence of a closure: the inner function remembers the scope in which it was created and can access its variables even when the outer function has finished executing.
 
-   - Loops: `for`, `while`, `do...while`
-   - Conditional Statements
-   - Ternary Operator
-   - Default Parameters
-
-6. **Error Handling**
-
-   - `try`, `catch`, `finally`, `throw`
-
-7. **Async Programming**
-
-   - Promise: Definition, States, Combinators
-   - `async`/`await`
-
-8. **ES6+ Features**
-
-   - `let`, `const`, `var`
-   - Template Literals
-   - Optional Chaining
-
-9. **Classes and Prototypes**
-
-   - Class Method Syntax
-   - Constructor Function
-   - Prototype and Prototype Chain
-
-10. **Modules and Scope**
-
-    - Module Systems: CommonJS vs ES Modules
-    - Scope Chain
-    - WeakSet, WeakMap
-
-11. **Browser Object Model (BOM) and DOM**
-
-    - `window`, `document`
-    - DOM Manipulation
-    - Event Handling: Bubbling, Capturing, Delegation
-    - Event Loop
-
-12. **Advanced JavaScript Concepts**
-
-    - Hoisting
-    - Generator Function
-    - Proxy Object
-    - WeakRef
-    - FlatMap
-
-13. **Functional Programming**
-
-    - Pure Functions
-    - Currying
-    - Higher-Order Functions
-    - Optional Chaining
-
-14. **Miscellaneous**
-
-    - Escape Sequences
-    - Runtime Environment
-
-15. **String Manipulation**
-
-    - `split()`, `join()`, `toUpperCase()`
-
-16. **Testing and Debugging**
-
-    - Unit Testing
-    - Debugging Techniques
-
-17. **JavaScript Object-Oriented Programming**
-
-    - Factory Functions
-    - Object Methods
-    - `this` Keyword
-
-18. **Promises and Async/Await**
-
-    - Promise Methods
-    - Promise State Transitions
-
-19. **Event Delegation vs Event Propagation**
-
-    - Event Bubbling
-    - Event Delegation
-
-20. **DOM vs BOM**
-
-    - `bind()`
-    - `call()` vs `apply()`
-    - `var` vs `let` vs `const`
-
-21. **Additional Concepts**
-
-    - Deep Copying in JavaScript
-    - `Object.prototype`
-    - Callbacks vs Higher-Order Functions
-    - Closure Applications and Drawbacks
-
-22. **Comparison**
-    - Map vs Set
-    - WeakSet vs WeakMap
-    - Normal Function vs Arrow Functions
-    - Pass by Value vs Pass by Reference
+**To read more on scope and closure refere [here](https://www.freecodecamp.org/news/scope-in-javascript-global-vs-local-vs-block-scope/)**
 
 ### JavaScript Resources to refer
 
