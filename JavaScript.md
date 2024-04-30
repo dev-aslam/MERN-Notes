@@ -414,7 +414,461 @@ In this example, `curriedAdd` is a curried version of the `add` function. Each c
 
 **Refer [here](https://designtechworld.medium.com/everything-about-currying-in-javascript-a2614b82e6ca) to learn more about currying**
 
-### JavaScript Resources to refer
+### **<span style ="color:blue">Web API </span>**
+
+Web APIs is an application programming interface that provides additional functionality to the web browser or the web server. It allows JavaScript code to access data or perform tasks that are not part of the core JavaScript language, such as manipulating the document object model (DOM), sending HTTP requests, playing audio or video, using geolocation, etc.
+
+Web APIs is not part of the basic JavaScript language, but it works with it. It uses some other code that can talk to the web browser or the web server. Web APIs can be of two types: browser APIs and third-party APIs.
+
+**Browser APIs**<br>
+Browser APIs are built into the web browser and are available to all web pages and applications. They expose data from the browser and the surrounding computer environment, such as `window`, `document`, `navigator`, `localStorage`, etc. They also provide methods to manipulate or use this data, such as `setTimeout()`, `alert()`, `fetch()`, etc.
+
+**Third-party APIs**<br>
+Third Party APIs are not built into the web browser by default, but they can be retrieved from somewhere on the web. They usually require some authentication or authorization to access their services or data. For example, the `Twitter APIs` allow you to display your latest tweets on your website. It provides a special set of constructs you can use to query the Twitter service and return specific information.
+
+**Categories of browser APIs**
+
+- **XMLHttpRequest (XHR) API:**<br>
+  The XHR API allows web browsers to make HTTP requests to fetch data from servers asynchronously. It enables the implementation of AJAX (Asynchronous JavaScript and XML) to create dynamic web pages that can fetch and display data without requiring a page reload.
+
+- **Fetch API:**<br>
+  These are capable of making HTTP requests to a web server. The response can be in JSON, plain text, or XML format. The fetch API is a modern replacement for XHR. It was introduced in browsers recently to make asynchronous HTTP requests easier.
+
+- **APIs for manipulating document structure (DOM)**<br>
+  The DOM API provides a structured representation of HTML and XML documents, allowing JavaScript to manipulate their content, structure, and style dynamically. This allows you to manipulate HTML and CSS in creating, removing, and also dynamically applying new styles to your page.
+
+- **Storage APIs:**<br>
+  These APIs give the ability to store data on the client-side, which is very useful for storing certain user data for some time. One of which is the Web Storage API. These can either be the sessionStorage, which keeps data for the duration of the session, or the localStorage, which retains the data even after the browser is closed
+  - **Web Storage API**:
+    The Web Storage API allows web applications to store key-value pairs locally on the client-side browser, providing a way to persist data across page reloads and browser sessions. It includes mechanisms such as localStorage and sessionStorage.
+- **APIs for drawing graphics:**<br>
+  Modern web browsers today now support the creation of graphics on the web. One of the APIs is the Canvas API. It provides a means for drawing graphics using JavaScript and HTML. Different shapes, objects, and styles can be created using this API.
+  It enables web developers to programmatically interact with and modify web page elements.
+  - **Canva API:**
+    The Canvas API allows dynamic rendering of graphics and images on web pages using JavaScript. It provides a drawing context for creating and manipulating bitmap images and graphics directly within the browser.
+  - **WebGL API:**
+    WebGL is a JavaScript API for rendering interactive 2D and 3D graphics within compatible web browsers. It provides access to the GPU (Graphics Processing Unit) for high-performance graphics rendering.
+- **Audio and Video APIs:**<br>
+  These APIs can manage, display, and create different media types. Some of which are:
+
+  - **Web Audio API:**
+    The Web Audio API provides a platform for controlling audio and allowing developers to choose audio sources, add effects to audio, create audio visualizations, apply spatial effects (such as panning) and much more.
+  - **The WebRTC (Web Real-Time Communication) API:**
+    It makes it possible to stream live audio and video, as well as transfer arbitrary data between two peers over the internet without requiring an intermediary.
+
+**To learn more about different type of Web APIs, refer [here](https://developer.mozilla.org/en-US/docs/Web/API)**
+
+**[MDN Docs on Client-side web APIs](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs)**
+
+### **<span style ="color:blue">JavaScript Runtime and Web APIs Interaction </span>**
+
+When a JavaScript program runs in the browser, it interacts with various parts of the browser environment, such as the DOM (Document Object Model), timers, network requests, and more.
+
+1. **Call Stack:**<br>
+   The call stack is a fundamental part of the JavaScript runtime. It keeps track of the execution context of functions. When a function is invoked, a new frame representing that function is pushed onto the call stack. When the function finishes executing, its frame is popped off the stack.
+2. **Web APIs Stack:**<br>
+   Web APIs are provided by the browser environment and include features like `setTimeout`, `fetch`, and `XMLHttpRequest`. When you call an asynchronous function like setTimeout, it's handed off to the browser's Web APIs for execution. These functions are executed independently of the main JavaScript thread, allowing the rest of your code to continue running.
+3. **Callback Queue:**<br>
+   Asynchronous functions, when completed, don't immediately return their results to the JavaScript code. Instead, they place their callback functions (or events) in a queue known as the callback queue. This queue holds functions that are ready to be executed once the call stack is empty and the event loop can retrieve them.
+4. **Event Loop:**<br>
+   The event loop ensures JavaScript code and Web APIs work harmoniously together. It continuously monitors the call stack and the callback queue. If the call stack is empty and there are functions waiting in the callback queue, the event loop moves those functions from the queue to the call stack for execution.
+
+eg:
+
+```javascript
+console.log("Start");
+
+setTimeout(function () {
+  console.log("Inside setTimeout");
+}, 2000);
+
+console.log("End");
+```
+
+- In this example, `"Start"` and `"End"` are added to the call stack and executed synchronously.
+- When setTimeout is encountered, it's passed to the Web APIs stack for a timer to be set. After 2 seconds, the callback function is placed in the callback queue.
+- Meanwhile, `"End"` is logged to the console.
+- Once the call stack is empty, the event loop moves the callback function from the callback queue to the call stack, where it's executed, resulting in "Inside setTimeout" being logged to the console.
+
+![JS Runtime](https://miro.medium.com/v2/resize:fit:720/format:webp/1*DhFeUdVpRbEq76ddF86sKg.jpeg)
+
+### **<span style ="color:blue">Higher Order Function</span>**
+
+A higher order function is a function that takes one or more functions as arguments, or returns a function as its result.<br>
+There are several different types of higher order functions like map and reduce.
+
+eg:
+
+```javascript
+// Callback function, passed as a parameter in the higher order function
+function callbackFunction() {
+  console.log("I am  a callback function");
+}
+
+// higher order function
+function higherOrderFunction(func) {
+  console.log("I am higher order function");
+  func();
+}
+
+higherOrderFunction(callbackFunction);
+```
+
+In the above code higherOrderFunction() is an HOF because we are passing a callback function as a parameter to it.
+
+### **<span style ="color:blue">Promise</span>**
+
+The Promise object represents the eventual completion (or failure) of an asynchronous operation and its resulting value.<br>
+A Promise is a JavaScript object used for managing asynchronous operations.<br>
+Promises allow you to write code that continues after a specific event occurs without blocking the execution of other code; JavaScript continues to read the code asynchronously.<br>
+Promises enable the handling of data that is not currently available but will be available in the future.
+
+A Promise has three states:
+
+- **Pending:** This is the initial state when the Promise is neither fulfilled nor rejected. It represents the state of the Promise while the asynchronous operation is still ongoing.
+- **Fulfilled:** This state signifies that the asynchronous operation associated with the Promise has been successfully completed.
+- **Rejected:** This state indicates that the asynchronous operation has failed or been rejected for some reason.
+
+Promises transition from the “Pending” state to either “Fulfilled” or “Rejected” once the asynchronous operation is completed. These states help manage the flow of asynchronous code and handle its outcomes.
+
+When a Promise is either fulfilled or rejected, it enters the `settled` state, and in this step, there are two important methods:
+
+- **then:** When a Promise successfully transitions to the `fulfilled` state, the `then` method allows you to specify a callback function or code block that will work with the completed data. This is used to define what should happen when a successful result is obtained.
+
+- **catch:** When a Promise transitions to the “rejected” state, the catch method lets you specify a callback function or code block that will work with the rejected error. This is used to handle situations where the operation fails.
+
+eg:
+
+```javascript
+const myPromise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    const randomNumber = Math.random();
+    if (randomNumber < 0.5) {
+      resolve("Data has been successfully retrieved.");
+    } else {
+      reject("An error occurred while fetching data.");
+    }
+  }, 1000);
+});
+
+myPromise
+  .then((data) => {
+    console.log(data);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+```
+
+In the above example We’ve added logic to randomly either resolve the Promise with a success message or reject it with an error message.
+We use the then method to handle the successful resolution and print the success message.
+We use the catch method to handle any errors and print the error message if the Promise is rejected.
+
+### **<span style ="color:blue">Promise Chaining</span>**
+
+Promise chaining is a concept in JavaScript used to handle asynchronous operations in a sequential manner.Promise chaining allows you to execute multiple asynchronous operations one after the other, ensuring that each operation completes before the next one begins.
+
+```javascript
+fetchData()
+  .then((data) => {
+    return otherFetchData(data);
+  })
+  .then((chainData) => {
+    return chainData.response;
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+```
+
+- A Promise chain is created by adding multiple `.then()` methods.
+- The initial Promise starts the chain, and each function within a `.then()` becomes a Promise itself, and their return values are passed to the next link in the chain.
+- Only one `.catch()` is sufficient within the Promise chain. If an unexpected error occurs within the chain, the subsequent `.then()` links are skipped, and the function inside `.catch()` is executed.
+
+### **finally()**
+
+The .finally() method is another feature of promises in JavaScript, It allows you to specify a function that will be executed regardless of whether the promise is resolved or rejected. This is useful for performing cleanup operations or tasks that need to be executed regardless of the outcome of the promise.
+
+eg:
+
+```javascript
+asyncTask()
+  .then((result) => {
+    console.log(result);
+  })
+  .catch((error) => {
+    console.error(error);
+  })
+  .finally(() => {
+    console.log("Cleanup code here");
+  });
+```
+
+- If the promise returned by asyncTask() is resolved, the .then() block will execute, logging the result.
+- If the promise is rejected, the .catch() block will execute, logging the error.
+- Regardless of whether the promise is resolved or rejected, the .finally() block will execute, allowing you to perform cleanup operations such as closing files, releasing resources, or logging.
+
+### **<span style ="color:blue">Promise Combinators or Promise Concurrency</span>**
+
+Promise combinators are higher-order functions that allow you to combine multiple promises to perform operations on them collectively.Each combinator method takes in an array of promises as an argument.Each combinator method in-turn returns a Promise.
+
+**Promise.all() method:**
+
+The `Promise.all()` method takes an array of promises and returns a single promise that resolves when all of the promises in the collection have resolved, or rejects with the reason of the first promise that rejects. It's useful when you want to perform multiple asynchronous operations concurrently and wait for all of them to complete before proceeding.
+
+`Fulfills when all of the promises fulfill; rejects when any of the promises rejects.`
+<br>
+eg:
+
+```javascript
+const p1 = Promise.resolve(3);
+const p2 = 1337;
+const p3 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve("foo");
+  }, 100);
+});
+
+Promise.all([p1, p2, p3]).then((values) => {
+  console.log(values); // [3, 1337, "foo"]
+});
+```
+
+**Promise.race() method:**
+
+`Promise.race()` is a method that takes a collection of promises and returns a new promise. This new promise resolves or rejects as soon as one of the promises in the collection settles (resolves or rejects), taking on the value or reason of that promise. It's particularly handy when you're interested in the outcome of the first promise that completes among several asynchronous operations.
+
+`Settles when any of the promises settles. In other words, fulfills when any of the promises fulfills; rejects when any of the promises rejects.`
+
+eg:
+
+```javascript
+const promise1 = new Promise((resolve, reject) => {
+  setTimeout(resolve, 500, "one");
+});
+
+const promise2 = new Promise((resolve, reject) => {
+  setTimeout(resolve, 100, "two");
+});
+
+Promise.race([promise1, promise2]).then((value) => {
+  console.log(value); // 'two' (because promise2 resolves first)
+});
+```
+
+**Promise.allSettled():**
+
+`Promise.allSettled()` is a method that takes a collection of promises and returns a new promise. This new promise resolves after all of the promises in the collection have settled (either resolved or rejected). It provides an array of objects, each describing the outcome of each promise, with information about whether it was fulfilled or rejected, and the value or reason accordingly. This method is particularly useful when you need to handle all promise outcomes, regardless of whether they resolve or reject.
+
+`Fulfills when all promises settle.`
+
+eg:
+
+```javascript
+const promise1 = Promise.resolve(42);
+const promise2 = Promise.reject("Error occurred");
+const promise3 = new Promise((resolve, reject) => {
+  setTimeout(resolve, 1000, "Third promise resolved");
+});
+
+Promise.allSettled([promise1, promise2, promise3]).then((results) => {
+  console.log(results);
+});
+
+/*output
+[
+  { status: 'fulfilled', value: 42 },              // Result of promise1
+  { status: 'rejected', reason: 'Error occurred' }, // Result of promise2
+  { status: 'fulfilled', value: 'Third promise resolved' } // Result of promise3
+]
+*/
+```
+
+**Promise.any():**
+
+`The Promise.any()` function takes a collection of promises as input and returns a single promise. This returned promise resolves as soon as any promise in the collection resolves, providing the value of the first resolved promise. However, if all promises in the collection are rejected (or if the collection is empty), the returned promise is rejected with an AggregateError, which includes a list of reasons for each rejection.
+
+`Fulfills when any of the promises fulfills; rejects when all of the promises reject.`
+
+eg:
+
+```javascript
+const promise1 = new Promise((resolve, reject) => {
+  setTimeout(reject, 1000, "First promise rejected");
+});
+
+const promise2 = new Promise((resolve, reject) => {
+  setTimeout(resolve, 500, "Second promise resolved");
+});
+
+const promise3 = new Promise((resolve, reject) => {
+  setTimeout(reject, 1500, "Third promise rejected");
+});
+
+Promise.any([promise1, promise2, promise3])
+  .then((value) => {
+    console.log(value); // 'Second promise resolved'
+  })
+  .catch((error) => {
+    console.error(error); // AggregateError: All promises were rejected
+  });
+```
+
+**Thenable**
+
+A "thenable" is an object that has a `.then()` method. This method allows it to be used in promise chains, enabling interoperability with promises. While it may not necessarily be a full-fledged promise object, as long as it has a `.then()` method conforming to the Promises/A+ specification, it can be treated as a promise-like object.
+
+**Read more about promise [mdn Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise), [Medium](https://medium.com/insiderengineering/mastering-javascript-promises-from-basics-to-advanced-f24669381c56)**
+
+### **<span style ="color:blue">Strict Mode</span>**
+
+Strict mode is a feature in JavaScript that lets you write code in such a way that follows stricter rules. This means you may be able to catch some common errors that would have otherwise gone unnoticed. It also helps you write cleaner and more secure code.
+
+To enable strict mode for the whole JavaScript file, you simply add the string `use strict` to the top of your code.
+
+**Features Strict Mode**
+
+- **Preventing Silent Errors**: In non-strict mode, some actions that would otherwise result in errors are silently ignored. Strict mode makes these errors explicit, helping you catch them early during development.
+
+- **Avoiding Global Variables**: In strict mode, assigning a value to an undeclared variable results in a `ReferenceError`. This prevents accidental creation of global variables and encourages cleaner code.
+
+- **Restricting `this` Binding**: In non-strict mode, `this` can refer to the global object when a function is called without an explicit context. Strict mode makes `this` `undefined` in such cases, preventing unintentional behavior.
+
+- **Eliminating Octal Syntax**: In strict mode, octal syntax (e.g., `010`) is not allowed, preventing potential confusion and unexpected behavior.
+
+- **Prohibiting `with` Statements**: In strict mode, the use of `with` statements is not allowed. This is because `with` can introduce ambiguity and make code harder to understand and optimize.
+
+- **Using an Undeclared Variable**: In strict mode, all variables and objects must be declared before use. This prevents accidental creation of global variables, improving code quality and reducing bugs.
+
+- **Duplicating a Parameter Name**: In non-strict mode, duplicating a parameter name in a function is allowed, with only the last instance of the duplicates being recognized. However, strict mode disallows parameter name duplication, throwing a syntax error to catch potential mistakes early.
+
+- **Using Reserved Future Keywords**: JavaScript reserves certain keywords for potential future use, and using them as identifiers (such as variables or function names) might cause issues in future versions. Strict mode prevents the use of these reserved keywords as identifiers, ensuring compatibility with future JavaScript versions.
+
+- **Use of Deprecated Features**: Strict mode restricts the use of deprecated JavaScript features like `arguments.caller` and `arguments.callee`, which are disallowed due to security and performance concerns. In contrast, non-strict mode allows the use of these deprecated features.
+
+- **Assignment to a Read-Only Property**: In non-strict mode, attempting to assign a new value to a read-only property silently fails without throwing an error. However, strict mode functions do not allow this behavior and instead throw a syntax error to alert developers to the issue.
+
+### **<span style ="color:blue">Class</span>**
+
+In JavaScript, a class is a blueprint for creating objects with similar properties and methods. It provides a way to define the structure and behavior of objects. You can think of a class as a template or a prototype from which individual objects can be created. It encapsulates data for the object it creates and defines methods to operate on that data. JavaScript classes use a syntax similar to other object-oriented programming languages like Java or C++, making it easier to organize and manage code.
+
+```javascript
+class Person {
+  // Constructor method
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+
+  // Instance method
+  greet() {
+    return `Hello, my name is ${this.name} and I'm ${this.age} years old.`;
+  }
+}
+
+// Creating an instance of the Person class
+const john = new Person("John", 30);
+
+// Calling the greet() method on the instance
+console.log(john.greet()); // Output: Hello, my name is John and I'm 30 years old.
+```
+
+### **<span style ="color:blue">Destructuring</span>**
+
+Destructuring Assignment is a JavaScript expression that allows to unpack values from arrays, or properties from objects, into distinct variables data can be extracted from arrays, objects, nested objects and assigning to variables.
+
+**Array desturcturing**
+
+```javascript
+const numbers = [1, 2, 3, 4, 5];
+
+// Extracting values from array
+const [first, second, ...rest] = numbers;
+
+console.log(first); // Output: 1
+console.log(second); // Output: 2
+console.log(rest); // Output: [3, 4, 5]
+```
+
+**Object desturcturing**
+
+```javascript
+const person = {
+  name: "John",
+  age: 30,
+  country: "USA",
+};
+
+// Extracting values from object
+const { name, age, country } = person;
+
+console.log(name); // Output: John
+console.log(age); // Output: 30
+console.log(country); // Output: USA
+```
+
+**Default Values and Renaming**
+
+```javascript
+const settings = {
+  apiKey: "abc123",
+  timeout: 5000,
+};
+
+// Destructuring with default values and renaming
+const {
+  apiKey: key = "defaultApiKey",
+  timeout = 3000,
+  secure = true,
+} = settings;
+
+console.log(key); // Output: abc123
+console.log(timeout); // Output: 5000 (default value overridden by value in settings)
+console.log(secure); // Output: true (default value used as it's not present in settings)
+```
+
+**Nested Destructuring**
+
+```javascript
+const user = {
+  name: "Alice",
+  age: 25,
+  address: {
+    city: "New York",
+    country: "USA",
+  },
+};
+
+// Nested destructuring
+const {
+  name,
+  address: { city, country },
+} = user;
+
+console.log(name); // Output: Alice
+console.log(city); // Output: New York
+console.log(country); // Output: USA
+```
+
+### **<span style ="color:blue">Removing Object Key</span>**
+
+To remove a key from an object in JavaScript, you can use the `delete` operator
+
+eg:
+
+```javascript
+let obj = {
+  key1: "value1",
+  key2: "value2",
+  key3: "value3",
+};
+
+delete obj.key2;
+
+console.log(obj); // Output: { key1: 'value1', key3: 'value3' }
+```
+
+## JavaScript Resources to refer
 
 1. [Namaste JavaScript](https://www.youtube.com/playlist?list=PLxnjbfm5MCHFbRlyVCAqpJFdIzPN_IPID)
 
