@@ -868,6 +868,101 @@ delete obj.key2;
 console.log(obj); // Output: { key1: 'value1', key3: 'value3' }
 ```
 
+### **<span style ="color:blue">Javascript Scheduling: setTimeout and setInterval (Timer Functions)</span>**
+
+**setTimeout(callback, delay)**
+
+The `setTimeout()` function is commonly used if you wish to run your function a specified number of milliseconds from when the `setTimeout()` method was called. The general syntax of the method is:
+
+`setTimeout ( expression, timeout );` <br>
+where expression is the JavaScript code or callback function to run after timeout milliseconds have elapsed.
+
+```javascript
+setTimeout(() => {
+  console.log("Delayed message");
+}, 1000); // Execute after 1 second
+```
+
+**setInterval(callback, delay)**
+
+The `setInterval()`Executes a function (`callback`) repeatedly at a specified interval (in milliseconds), until `clearInterval` is called - they even have same syntax:
+
+`setInterval ( expression, interval );`
+
+```javascript
+setInterval(() => {
+  console.log("Repeated message");
+}, 2000); // Execute every 2 seconds
+```
+
+`setTimeout()` triggers the expression only once while `setInterval()` keeps triggering expressionregularly after the given interval of time.
+
+**clearInterval(timeoutId)**
+
+Cancels a timeout previously established by calling `setTimeout`.
+
+```js
+let timeoutId = setTimeout(() => {
+  console.log("Delayed message");
+}, 1000);
+
+clearTimeout(timeoutId); // Cancel the timeout
+```
+
+**clearInterval(intervalId)**
+
+Cancels a timer previously established by calling `setInterval`.
+
+```js
+let intervalId = setInterval(() => {
+  console.log("Repeated message");
+}, 2000);
+
+clearInterval(intervalId); // Cancel the interval
+```
+
+### **<span style ="color:blue">Variadic Functions</span>**
+
+In JavaScript, a variadic function is a function that can accept a variable number of arguments. This means the function can be called with any number of arguments, including none at all.
+
+you can achieve variadic behavior using the `arguments` object or the rest parameter syntax `(...args)`.
+
+**Arguments object**
+
+The arguments object is available inside every function and allows you to access all arguments passed to the functions. Even arguments do not declare explicitly in function. An argument object is like an array of arguments of functions.
+
+eg:
+
+```js
+function SumOfNum() {
+  let total = 0;
+  for (let i = 0; i < arguments.length; i++) {
+    total += arguments[i];
+  }
+  return total;
+}
+
+console.log("Sum is ", SumOfNum(1, 2, 3, 4)); //10
+console.log("Sum is ", SumOfNum(1, 2, 5)); //8
+```
+
+**Rest parameter**
+
+The rest parameter allows you to collect a variable number of arguments into an array parameter. To achieve variadic functions behavior using rest parameter, you can define a single argument inside a function using the rest operator.
+
+```js
+function SumOfNum(...numbers) {
+  let total = 0;
+  for (let i = 0; i < numbers.length; i++) {
+    total += numbers[i];
+  }
+  return total;
+}
+
+console.log("Sum is ", SumOfNum(1, 2, 3, 4));
+console.log("Sum is ", SumOfNum(1, 2, 5));
+```
+
 ## JavaScript Resources to refer
 
 1. [Namaste JavaScript](https://www.youtube.com/playlist?list=PLxnjbfm5MCHFbRlyVCAqpJFdIzPN_IPID)
