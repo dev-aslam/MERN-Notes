@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ### How to Contribute to a GitHub Repository
 
 1. **Fork the Repository**
@@ -92,6 +91,4 @@
    - Clearly explain the purpose of the pull request, changes made, and any relevant information for reviewers.
 
 Following these guidelines will help maintain consistency and clarity in the repository. Feel free to reach out if you have any questions or need further assistance!
-=======
 
->>>>>>> ad9d5845fe49bdd58f05109a4faf083dcfcf3731
